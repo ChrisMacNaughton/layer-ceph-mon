@@ -302,15 +302,6 @@ def install_apparmor_profile():
             raise
 
 
-@hooks.hook('install.real')
-@harden()
-def install():
-    execd_preinstall()
-    add_source(config('source'), config('key'))
-    apt_update(fatal=True)
-    apt_install(packages=ceph.PACKAGES, fatal=True)
-
-
 def get_ceph_context():
     networks = get_networks('ceph-public-network')
     public_network = ', '.join(networks)
